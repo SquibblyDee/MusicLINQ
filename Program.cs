@@ -28,6 +28,7 @@ namespace ConsoleApplication
             // }
             
             ////METHOD
+            Console.WriteLine("All artists from Mount Vernon");
             IEnumerable<Artist> VernonArtist = Artists.Where(artist => artist.Hometown == "Mount Vernon");
             foreach(Artist artist in VernonArtist)
             {
@@ -43,6 +44,7 @@ namespace ConsoleApplication
             // Console.WriteLine("Youngest artist's age: " + ourArtist.Age + "\n");
 
             ////METHOD
+            Console.WriteLine("The Youngest Artist");
             IEnumerable<Artist> YoungArtist = Artists.OrderBy(p => p.Age).Take(1);
             foreach(Artist artist in YoungArtist)
             {
@@ -50,19 +52,43 @@ namespace ConsoleApplication
             }
 
             //Display all artists with 'William' somewhere in their real name
-            IEnumerable<Artist> WilliamArtists = from artist in Artists
+            ////QUERY
+            // IEnumerable<Artist> WilliamArtists = from artist in Artists
                                         // where artist.RealName == "William"
-                                        select artist;
-            Console.WriteLine("Artists whose name contains William:");
+                                        // select artist;
+            // Console.WriteLine("Artists whose name contains William:");
+            // foreach(Artist artist in WilliamArtists)
+            // {
+                // if(artist.RealName.Contains("William"))
+                // {
+                    // Console.WriteLine("Artists's Name: " + artist.RealName + "\n");
+                // }
+            // }
+
+            ////METHOD
+            Console.WriteLine("All artists named William");
+            IEnumerable<Artist> WilliamArtists = Artists.Where(p => p.RealName.Contains("William"));
             foreach(Artist artist in WilliamArtists)
             {
-                if(artist.RealName.Contains("William"))
-                {
-                    Console.WriteLine("Artists's Name: " + artist.RealName + "\n");
-                }
+                Console.WriteLine("Artists's Name: " + artist.RealName + "\n");
             }
+
             //Display the 3 oldest artist from Atlanta
-            
+            ////METHOD
+            Console.WriteLine("Oldest 3x artists from Atl");
+            IEnumerable<Artist> OldAtlArtists = Artists.Where(p => p.Hometown == "Atlanta").OrderByDescending(p => p.Age).Take(3);
+            foreach(Artist artist in OldAtlArtists)
+            {
+                Console.WriteLine("Artists's Name: " + artist.RealName + " - Artist's Hometown: " + artist.Hometown + " - Artist's Age: " + artist.Age + "\n");
+            }
+
+            //Display all groups with names less than 8 characters in length
+            Console.WriteLine("Groups with names of less than 8 Characters");
+            IEnumerable<Group> ShortGroups = Groups.Where(p => p.GroupName.Length < 8);
+            foreach(Group group in ShortGroups)
+            {
+                Console.WriteLine("Group's Name: " + group.GroupName + "\n");
+            }
 
             //(Optional) Display the Group Name of all groups that have members that are not from New York City
 
